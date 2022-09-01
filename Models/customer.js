@@ -14,10 +14,6 @@ const customerSchema = mongoose.Schema(
           "Please add a valid email",
      ],
      },
-     pasword:{
-        type: String,
-        required: true,
-     },
         
       full_name: {
         type: String,
