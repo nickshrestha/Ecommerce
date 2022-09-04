@@ -2,19 +2,17 @@ const mongoose = require("mongoose");
 
 const adminSchema = mongoose.Schema(
     {
-    admin_id:{
-        type: String,
-        required: true,
-     },
+    
     email: {
         type: String,
         required: true,
+        unique: true,
          match: [
           /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
           "Please add a valid email",
      ],
      },
-     pasword:{
+     password:{
         type: String,
         required: true,
      },
@@ -23,8 +21,19 @@ const adminSchema = mongoose.Schema(
         type: String,
         required: true,
       },
-      
-      
+      contact:{
+        type: String,
+        required: true,
+        unique: true,
+      },
+      address:{
+        type: String,
+        required: true,
+      },
+      isadmin: {
+        type: Boolean,
+        default: false,
+      }
      
     },
    
