@@ -1,19 +1,18 @@
-import { Router } from "express";
-
-import {
-  getSingleUser,
-  getAllUsers,
+const Router = require("express")
+const {
+  // getSingleUser,
+  // getAllUsers,
   addUser,
-  login,
-  editUser,
-} from "../controllers/userController.js";
+  // login,
+  // editUser,
+}= require("../controllers/userController.js") ;
 
-const route = Router();
+const router = Router();
 
-route.get("/:id", getSingleUser);
-route.get("/", getAllUsers);
-route.patch("/:id", editUser);
-route.post("/register", addUser);
-route.post("/login", login);
+// router.get("/:id", getSingleUser);
+// router.get("/", getAllUsers);
+// router.patch("/:id", editUser);
+router.post("/register", addUser);
+// router.post("/login", login);
 
-export default route;
+module.exports = router;

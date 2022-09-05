@@ -1,8 +1,7 @@
-import mongoose from "mongoose";
-
-const customerSchema = mongoose.Schema(
+const mongoose = require("mongoose");
+const userSchema = mongoose.Schema(
   {
-    customerId: {
+    userId: {
       type: String,
       required: true,
       unique: true,
@@ -12,9 +11,21 @@ const customerSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
-    isAdmin: {
-      type: Boolean,
-      default: false,
+    useremail: {
+      type: String,
+      required: true,
+       match: [
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        "Please add a valid email",
+   ],
+   },
+    billing_address: {
+      type: String,
+      required: true,
+    },
+    contact:{
+      type: String,
+      required: true,
     },
   },
 
@@ -24,5 +35,5 @@ const customerSchema = mongoose.Schema(
 );
 
 //making  model
-const customer = mongoose.model("customer", customerSchema);
-export default customer;
+const user = mongoose.model("user", userSchema);
+module.exports =  user;

@@ -1,4 +1,7 @@
-export const okResponse = ({ status, data, req, res }) => {
+ 
+ 
+ 
+ const okResponse = ({ status, data, req, res }) => {
     const resObj = {
       success: true,
       code: status,
@@ -10,7 +13,7 @@ export const okResponse = ({ status, data, req, res }) => {
     };
     res.status(status).send(resObj);
   };
-  export const errorResponse = ({
+const errorResponse = ({
     status,
     message,
     data,
@@ -28,4 +31,8 @@ export const okResponse = ({ status, data, req, res }) => {
       timeStamp: new Date(),
     };
     res.status(status).send(resObj);
+  };
+
+  module.exports = {
+    okResponse, errorResponse
   };
