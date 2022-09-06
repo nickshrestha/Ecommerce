@@ -1,7 +1,7 @@
 const Router = require("express")
 const {
-  // getSingleUser,
-  // getAllUsers,
+  getUserById,
+  getAllUsers,
   addUser,
   // login,
   // editUser,
@@ -9,10 +9,10 @@ const {
 
 const router = Router();
 
-// router.get("/:id", getSingleUser);
-// router.get("/", getAllUsers);
+router.get("/:id", getUserById);
+router.get("/getall", getAllUsers);
 // router.patch("/:id", editUser);
-router.post("/register", addUser);
+router.post("/add", addUser);
 // router.post("/login", login);
 
 module.exports = router;

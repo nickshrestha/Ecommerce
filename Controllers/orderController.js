@@ -4,8 +4,8 @@ import ProductDB from "../models/productModel.js";
 import { uniqueId } from "../helper/uniqueId.js";
 import { mailSender } from "../helper/mailHandler.js";
 
-const cartController = {
-  createOrder: async (req, res) => {
+
+  const createOrder =  async (req, res) => {
     try {
       const orderItemsIds = Promise.all(
         req.body.orders.map(async (orderItem) => {
@@ -94,9 +94,9 @@ const cartController = {
     } catch (err) {
       res.status(500).json({ success: false, Error: err });
     }
-  },
+  };
 
-  getAllOrders: async (req, res) => {
+  const getAllOrders = async (req, res) => {
     try {
       const orderList = await CartDB.find().populate({
         path: "orders",
@@ -107,9 +107,9 @@ const cartController = {
     } catch (err) {
       res.status(500).json({ success: false, error: err });
     }
-  },
+  };
 
-  getOrderByUser: async (req, res) => {
+ const  getOrderByUser = async (req, res) => {
     try {
       const userOrder = await CartDB.findOne({
         username: req.params.username,
@@ -118,9 +118,9 @@ const cartController = {
     } catch (err) {
       res.status(400).json({ success: false, Error: err });
     }
-  },
+  };
 
-  updateOrderStatus: async (req, res) => {
+ const  updateOrderStatus = async (req, res) => {
     try {
       const updatedOrder = await CartDB.findOneAndUpdate(
         { id: req.params.id },
@@ -134,18 +134,18 @@ const cartController = {
     } catch (err) {
       res.status(500).json({ success: false, Error: err });
     }
-  },
+  };
 
-  getCartCount: async (req, res) => {
+  const getCartCount = async (req, res) => {
     try {
       const cartCount = await CartDB.count();
       res.status(200).json({ success: true, data: cartCount });
     } catch (err) {
       res.status(500).json({ success: false, data: err });
     }
-  },
+  };
 
-  getTotalSales: async (req, res) => {
+ const  getTotalSales =  async (req, res) => {
     try {
       const sales = await cartModel.find();
       const totalSales = 0;
@@ -162,7 +162,9 @@ const cartController = {
     } catch (err) {
       res.status(500).json({ success: false, Error: err });
     }
-  },
-};
+  };
 
-export default cartController;
+module.export = {
+createOrder,
+
+};

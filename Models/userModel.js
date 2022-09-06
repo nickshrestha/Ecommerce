@@ -9,7 +9,6 @@ const userSchema = mongoose.Schema(
     username: {
       type: String,
       required: true,
-      unique: true,
     },
     useremail: {
       type: String,
@@ -17,7 +16,9 @@ const userSchema = mongoose.Schema(
        match: [
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
         "Please add a valid email",
+       
    ],
+   unique: true,
    },
     billing_address: {
       type: String,

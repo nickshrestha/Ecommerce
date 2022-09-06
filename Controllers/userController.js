@@ -5,53 +5,30 @@ const jwt = require("jsonwebtoken");
 
 
 //getting a user using id
- const getSingleUser = async (req, res) => {
-  try {
-    const user = await User.find({ userId: req.params.id }).select(
-      "-passwordHash"
+const getUserById = async (req, res, next) => {
+  try { console.log(req.params)
+   let {userId} =req.params;
+    const result = await User.findOne(
+      userId
     );
-    if (!user) {
-    res.status(404).json({
-       
-        message: "not found",
-        data: [],
-       
-      });
-    }
-    okResponse({ status: 200, data: user, req, res });
-  } catch (err) {
-    res.status(500).json({
-      
-      message: err,
-      
-    });
+    return res.status(201).json(result);
+  } catch (error) {
+    next(error);
+  }
+  };
+
+const getAllUsers = async (req, res) => {
+  try {
+   let {userId} =req.body;
+    // const myfarm = await product.find();
+    // return res.status(201).json(myfarm);
+    const result = await  User.find(userId);
+    return res.status(201).json(result);
+  } catch (error) {
+    return res.status(500).json(error);
+    
   }
 };
-
-// //get all users
-//  const getAllUsers = async (req, res) => {
-//   try {
-//     const user = await User.find().select("-passwordHash");
-//     if (!user) {
-//       errorResponse({
-//         status: 404,
-//         message: "not found",
-//         data: [],
-//         req,
-//         description: "User not found",
-//         res,
-//       });
-//     }
-//     res.status(200).json({  data: user, });
-//   } catch (err) {
-//     res.status(500).json({
-//       message: err,
-//       data: [],
-      
-//     });
-//   }
-// };
-
 //creating user
  const addUser = async (req, res) => {
   let userdata = new User({
@@ -81,47 +58,14 @@ const jwt = require("jsonwebtoken");
   }
 };
 
- const login = async (req, res) => {
-  const secret = process.env.secret;
-  try {
-    const user = await User.findOne({ username: req.body.username });
-    if (!user) {
-      res.status(404).json({
-        message: "not found",
-        data: [],
-    
-      });
-    }
-    if (user && bcrypt.compareSync(req.body.password, user.passwordHash)) {
-      const token = jwt.sign(
-        {
-          userId: user.userId,
-          isAdmin: user.isAdmin,
-        },
-        secret,
-        { expiresIn: "1d" }
-      );
-      okResponse({ status: 200, data: { token }, req, res });
-    } else {
-      res.status(404).json({
-         message: "not found",
-        data: [],
-      });
-    }
-  } catch (err) {
-    res.status(500).json({
-      message: err,
-      data: [],
-    });
-  }
-};
+
 
 // //editing user
 //  const editUser = async (req, res) => {
 //   let userdata = {
 //     userId: req.body.userId,
 //     username: req.body.username,
-//     passwordHash: bcrypt.hashSync(req.body.password, 10),
+    
 //     isAdmin: req.body.isAdmin,
 //   };
 //   try {
@@ -162,5 +106,7 @@ const jwt = require("jsonwebtoken");
 // };
 
 module.exports = {
-  addUser
+  addUser,
+  getAllUsers,
+  getUserById
 };
