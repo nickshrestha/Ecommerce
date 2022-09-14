@@ -6,7 +6,7 @@ const cors = require("cors");
 // routes from routers
 const adminRoutes = require("./Routers/admin.js");
 const discountRoutes = require("./Routers/discount.js");
-const catagoryRoutes = require("./Routers/categoryRoute.js");
+const categoryRoutes = require("./Routers/categoryRoute.js");
 const productRoutes = require("./Routers/productRoute.js");
 const userRoutes = require("./Routers/userRoute.js");
 // // dotenv file for config file
@@ -25,7 +25,7 @@ app.use(cors());
 //routes
 app.use("/api/v1/admin", adminRoutes);
 app.use("/api/v1/discount", discountRoutes);
-app.use("/api/v1/catagory", catagoryRoutes);
+app.use("/api/v1/catagory", categoryRoutes);
 app.use("/api/v1/product", productRoutes);
 app.use("/api/v1/user", userRoutes);
 

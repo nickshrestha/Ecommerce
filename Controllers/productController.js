@@ -1,14 +1,15 @@
-const Category = require("../Models/catagoryModel.js");
+const Category = require("../Models/categoryModel.js");
 const product = require("../Models/producModel.js")
 //create and save new product
 const addProduct = async (req, res) => {
   try {
-   
-    const category = await Category.findOne({ _id:id });
-    if (!category) {
+    let {productId, name,description,stockQuantity,price, category} = req.body;
+    const categoryId = await Category.findOne({ _id:category });
+    if (!categoryId) {
       res.status(404).json({ success: false, message: "invalid category id" });
       return;
     }
+    
     const file = req.file;
     if (!file) {
       res.status(404).json({ success: false, message: "Image not found" });
@@ -19,35 +20,22 @@ const addProduct = async (req, res) => {
     const filePath = `/public/uploads/`;
    
     let product_data = new product({
-      productId: req.body.productId,
-      name: req.body.name,
-      description: req.body.description,
+      productId: productId,
+      name: name,
+      description: description,
       image: `${filePath}${fileName}`,
-      stockQuantity: req.body.stockQuantity,
-      price: req.body.price,
-      category: category._id,
+      stockQuantity: stockQuantity,
+      price: price,
+      category: categoryId._id,
 
     });
 
     
     
     let data = await product_data.save();
-    if (data) {
-      const count = category.quantity + product_data.stockQuantity;
-      const categoryCount = await Category.findByIdAndUpdate(
-        { _id:id },
-        {
-          quantity: count,
-        }
-      );
-      if (!categoryCount) {
-        res.status(400).json({
-          success: false,
-          message: "count cannot be updated",
-        });
-      }
-      res.status(200).json({ success: true, data: data });
-    }
+   if (!data){ res.status(404).json({
+    msg: "cannot be created"
+   })}
         }catch(error){
             res.status(400).send({success: false, msg:error.message});
         }
@@ -79,8 +67,9 @@ const getAllProduct = async (req, res) => {
 //get all products via category id
 const getAllCategoryProduct = async (req, res) => {
   try {
+    // let {id, name} = req.body;
     const category = await Category.findOne({
-      $and: [{ _id:id }, { isDeleted: false }],
+      $and: [{ categoryId: req.body.id }, { isDeleted: false }],
     });
     if (!category) {
       res.status(404).json({ success: false, message: "category not found" });
@@ -129,21 +118,25 @@ const getSingleProduct = async (req, res) => {
 
 //update product by id
 const updateProduct = async (req, res) => {
+
   try {
+    let {productId, name,description,stockQuantity,price, category} = req.body;
     //validate request
     if (!req.body) {
-      res.status(400).send({
+      res.status(400).json({
         success: false,
         message: "To update content can not be empty",
       });
       return;
     }
-
+    
+    
     const Product = {
-      name: req.body.name,
-      description: req.body.description,
-      stockQuantity: req.body.stockQuantity,
-      price: req.body.price,
+      name,
+      description,
+      stockQuantity,
+      price,
+      category, 
     };
     if (req.file) {
       const fileName = req.file.filename;
@@ -152,7 +145,7 @@ const updateProduct = async (req, res) => {
     }
 
     let data = await product.findOneAndUpdate(
-      { _id: id },
+      { _id: productId},
       Product,
       {
         new: true,

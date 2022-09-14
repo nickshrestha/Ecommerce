@@ -1,7 +1,7 @@
-const categoryModel = require( "../Models/catagoryModel.js");
+const categoryModel = require( "../Models/categoryModel.js");
 const { uniqueId } = require("../helpers/uniqueId.js");
 const Product = require("../Models/producModel.js");
-const Category = require("../Models/catagoryModel.js");
+const Category = require("../Models/categoryModel.js");
 
 const categoryController = {
   getAllCategory: async (req, res) => {
