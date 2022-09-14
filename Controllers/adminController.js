@@ -1,7 +1,7 @@
 require("../database/database.js");
 const bcryptjs = require("bcryptjs")
 const Admin = require('../Models/admin.js');
-// const { resetMailer } = require("../helpers/resetmailer.js");
+// const { Mailer } = require("../helpers/mailer.js");
 // const { generateResetToken } = require("../helpers/resetToken.js");
 const jwt = require("jsonwebtoken");
 const { emptyQueryValidator, bodyValidator, emptyFieldValidator, emptyBodyValidator } = require("../utils/validator.js");
@@ -201,7 +201,7 @@ const loginAdmin = async (req, res) => {
 // //     }
 // //     const token = await generateResetToken(data);
 // //     let url = `${process.env.RESET_PASSWORD_URL}/#/reset/${data._id}/${token}`;
-// //     await resetMailer(data.email, data.name, url);
+// //     await Mailer(data.email, data.name, url);
 // //     return res.status(200).send({message: "Mail sent sucessfully." });
       
 // //   } catch (err) {
@@ -238,7 +238,7 @@ const loginAdmin = async (req, res) => {
 
 //     let url = `${process.env.RESET_PASSWORD_URL}/#/reset/${data._id}/${token}`;
    
-//     await resetMailer(data, url);
+//     await Mailer(data, url);
   
 
 //     return res.status(200).json({

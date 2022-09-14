@@ -1,7 +1,8 @@
-import mongoose from "mongoose";
-const Schema = mongoose.Schema;
 
-const cartSchema = new Schema(
+
+const mongoose = require("mongoose");
+
+const cartSchema = new mongoose.Schema(
   {
     id: {
       type: String,
@@ -12,7 +13,7 @@ const cartSchema = new Schema(
     orders: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "orderDB",
+        ref: "Order",
         required: true,
       },
     ],
@@ -31,6 +32,7 @@ const cartSchema = new Schema(
     phone: {
       type: Number,
       required: true,
+     
     },
 
     address: {
@@ -44,6 +46,7 @@ const cartSchema = new Schema(
     totalPrice: {
       type: Number,
       required: true,
+      unique:true
     },
   },
   {
@@ -51,6 +54,6 @@ const cartSchema = new Schema(
   }
   );
 
-const CartDB = mongoose.model("CartDB", cartSchema);
+const Cart = mongoose.model("Cart", cartSchema);
 
-export default CartDB;
+module.exports = Cart;

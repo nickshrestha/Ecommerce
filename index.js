@@ -9,6 +9,7 @@ const discountRoutes = require("./Routers/discount.js");
 const categoryRoutes = require("./Routers/categoryRoute.js");
 const productRoutes = require("./Routers/productRoute.js");
 const userRoutes = require("./Routers/userRoute.js");
+const orderRoutes = require("./Routers/orderRouter.js");
 // // dotenv file for config file
 const dotenv = require("dotenv").config();
 // import "dotenv/config";
@@ -28,6 +29,7 @@ app.use("/api/v1/discount", discountRoutes);
 app.use("/api/v1/catagory", categoryRoutes);
 app.use("/api/v1/product", productRoutes);
 app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/order", orderRoutes);
 
 
 app.listen(process.env.PORT, () => {

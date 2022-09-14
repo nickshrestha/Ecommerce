@@ -145,21 +145,21 @@ const updateProduct = async (req, res) => {
     }
 
     let data = await product.findOneAndUpdate(
-      { _id: productId},
+      { productId: req.params.id},
       Product,
       {
         new: true,
       }
     );
     if (!data) {
-      res.status(404).json({
+    return  res.status(404).json({
         success: false,
         message: `cannot update product. Product not found!`,
       });
     }
-    res.status(200).json({ success: true, data: data });
+   return res.status(200).json({ success: true, data: data });
   } catch (err) {
-    res.status(500).json({ success: false, Error: err, msg: "error" });
+   return  res.status(500).json({ success: false, Error: err, msg: "error" });
   }
 };
 
