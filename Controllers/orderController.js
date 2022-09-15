@@ -1,5 +1,6 @@
 const Product = require("../Models/producModel.js");
 const mailer = require("../helpers/mailHander.js");
+const OrderstatusMail = require("../helpers/mailHander.js");
 const Order = require("../Models/orderModel.js");
 const Cart = require("../Models/cartModel.js");
 
@@ -80,7 +81,7 @@ const createOrder = async (req, res) => {
             { new: true }
           );
           if (!updatedStock) {
-            throw "Updating Stock Failed Successfully";
+            throw "Updating Stock Failed ";
           }
         } else {
           throw `Ordered Quantity for${orderItem.product.name} exceeds the Stock Quantity`;
@@ -167,11 +168,13 @@ const updateOrderStatus = async (req, res) => {
       }
     );
     if (!data) {
+      
       return res.status(404).json({
         success: false,
         message: `cannot update Status. Order not found!`,
       });
     }
+    await OrderstatusMail(data);
     return res.status(200).json({ success: true, data: data });
   } catch (err) {
     return res.status(500).json({ success: false, Error: err, msg: "error" });
