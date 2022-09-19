@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const sequelize = require("sequelize");
+
 
 mongoose
   .connect(
@@ -13,7 +13,7 @@ mongoose
     
   )
   .then(() => {
-    console.log("Connected to database");
+    console.log("Database Connected ");
   })
   .catch((err) => {
     console.log(err);

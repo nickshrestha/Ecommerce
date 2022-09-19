@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+const otpGenerator = require("otp-generator");
 
 let transporter = nodemailer.createTransport({
   // pool: true,
@@ -16,6 +17,7 @@ let transporter = nodemailer.createTransport({
 
 const mailer = async (data) => {
   try {
+    newOTP.generate(6, { alphabets: false, upperCase: false, specialChar: false });
     
     await transporter.sendMail({
       from: process.env.MAIL_USERNAME,
@@ -23,6 +25,7 @@ const mailer = async (data) => {
       subject: "Your order is added sucessfully",
       html: `<h2 >Hello!</h2>
       <p> Dear, ${data.username} your order for cart id ${data.id} is ${data.orderStatus}.</p>
+      <p> ${otp} <p>
       <h4>Sincerely</h4><br>
       <h3>Shrestha Venture Ecommerce</h3>`,
     });

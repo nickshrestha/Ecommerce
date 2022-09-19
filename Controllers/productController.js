@@ -1,5 +1,6 @@
 const Category = require("../Models/categoryModel.js");
 const product = require("../Models/producModel.js")
+const cloudinary = require("../Utils/cloudinary")
 //create and save new product
 const addProduct = async (req, res) => {
   try {
@@ -18,6 +19,8 @@ const addProduct = async (req, res) => {
 
     const fileName = req.file.filename;
     const filePath = `/public/uploads/`;
+
+    cloudinary.uploader.upload
    
     let product_data = new product({
       productId: productId,
@@ -220,7 +223,7 @@ const countProduct = async (req, res) => {
 //product search
 const searchProducts = async (req, res) => {
   try {
-    var query = req.params.name.replace(/momo/g, "");
+    var query = req.params.name.replace(/shoes/g, "");
     var regex = new RegExp(query, "i");
     const Product = await product.find({
       $and: [{ name: regex }, { isDeleted: false }],

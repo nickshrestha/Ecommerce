@@ -190,24 +190,7 @@ const getCartCount = async (req, res) => {
   }
 };
 
-const getTotalSales = async (req, res) => {
-  try {
-    const sales = await cartModel.find();
-    const totalSales = 0;
-    sales.map((sale) => {
-      totalSales = totalSales + sale.totalPrice;
-    });
 
-    res.status(200).json({
-      success: true,
-      data: {
-        totalSales: totalSales,
-      },
-    });
-  } catch (err) {
-    res.status(500).json({ success: false, msg: err.message });
-  }
-};
 
 module.exports = {
   createOrder,
@@ -215,5 +198,4 @@ module.exports = {
   getOrderByUser,
   updateOrderStatus,
   getCartCount,
-  getTotalSales,
 };
